@@ -1,0 +1,30 @@
+{
+	"app": {
+		"name": "My App",
+		"version": "1.2.0",
+		"debug": false
+	},
+	"servers": [
+		{
+			"host": "10.0.0.1",
+			"port": 8080
+		},
+		{
+			"host": "10.0.0.2",
+			"port": 8081
+		}
+	],
+	"database": {
+		"host": "localhost",
+		"port": 5432,
+		"user": "admin",
+		"password": null,
+		"replicas":
+			[
+				"db1.local",
+				"db2.local"
+			]
+	},
+	"greeting": "Caf\u00e9 \"quoted\"\nnew line",
+	"timeout": 2.5e1
+}
