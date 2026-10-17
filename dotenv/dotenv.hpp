@@ -16,8 +16,9 @@ public:
 	/**
 	 * @brief Parameterized constructor
 	 * @param file_name Name of the env file
+	 * @throw Failed to open the file
 	*/
-	dotenv(const std::string&) noexcept(true);
+	dotenv(const std::string&) noexcept(false);
 
 	/**
 	 * @brief Load a env file

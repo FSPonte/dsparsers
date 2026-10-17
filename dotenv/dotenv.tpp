@@ -7,7 +7,7 @@ dotenv::dotenv(void) noexcept(true)
 : _map(std::unordered_map<std::string, std::string>())
 {}
 
-dotenv::dotenv(const std::string& file_name) noexcept(true)
+dotenv::dotenv(const std::string& file_name) noexcept(false)
 {
 	this->load(file_name);
 }
