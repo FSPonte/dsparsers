@@ -6,33 +6,42 @@
 
 // ----- Dependencies -----
 #include <iostream>
-#include "dotenv.hpp"
+#include <dotenv.hpp>
+#include <dotjson.hpp>
 
-int main(int argc, char* argv[])
+int main(int, char* argv[])
 {
-	// ----- Program arguments -----
+	// ----- Environment -----
 	{
-		std::printf("----- Passed arguments -----\n");
+		std::printf("----- File: %s -----\n", argv[1]);
 
-		for (int i = 1; i < argc; ++i)
-			std::cout << argv[i] << '\n';
+		dotenv env(argv[1]);
 	
-		std::printf("-----------------------------\n\n");
-
-		if (argc == 1)
-			return 0;
+		std::cout
+			<< "Size: " << env.size() << " elements\n\n"
+			<< "API_KEY=" << env["API_KEY"] << '\n'
+			<< "HOST=" << env["HOST"] << '\n'
+			<< "PORT=" << env["PORT"] << '\n'
+			<< "PROTOCOL=" << env["PROTOCOL"] << '\n'
+			<< "BASE_URL=" << env["BASE_URL"] << '\n'
+			<< std::endl;
 	}
 
-	dotenv env(argv[1]);
-	
-	std::cout
-		<< "Size: " << env.size() << " elements\n\n"
-		<< "API_KEY=" << env["API_KEY"] << '\n'
-		<< "HOST=" << env["HOST"] << '\n'
-		<< "PORT=" << env["PORT"] << '\n'
-		<< "PROTOCOL=" << env["PROTOCOL"] << '\n'
-		<< "BASE_URL=" << env["BASE_URL"] << '\n'
-		<< std::flush;
+	// ----- JSON -----
+	{
+		std::printf("----- File: %s -----\n", argv[2]);
+		dotjson json(argv[2]);
+		
+		std::cout
+			<< "Size: " << json.size() << " elements\n\n"
+			<< "app.name: " << json["app.name"] << '\n'
+			<< "app.version: " << json["app.version"] << '\n'
+			<< "servers[1].host: " << json["servers[1].host"] << '\n'
+			<< "servers[0].port: " << json["servers[0].port"] << '\n'
+			<< "database.password: " << json["database.password"] << '\n'
+			<< "greeting: " << json["greeting"] << '\n'
+			<< std::endl;
+	}
 
 	return 0;
 }
