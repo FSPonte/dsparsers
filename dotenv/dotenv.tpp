@@ -42,8 +42,8 @@ void dotenv::load(const std::string& file_name) noexcept(false)
 
 std::string dotenv::expand(const std::string& value) const noexcept
 {
+	size_t i = 0;
 	std::string result;
-	std::size_t i = 0;
 
 	while (i < value.size())
 	{
@@ -53,29 +53,30 @@ std::string dotenv::expand(const std::string& value) const noexcept
 			continue;
 		}
 
-		const std::size_t start = i + 1;
-		std::size_t end;
+		const size_t start = i + 1;
+		size_t end;
 		std::string name;
 
 		if (start < value.size() && value[start] == '{')
-		{
-			// ${VAR}
+		{ // ${VAR}
 			end = value.find('}', start + 1);
+		
 			if (end == std::string::npos)
 			{
 				result += value[i++]; // unterminated, keep '$' literally
 				continue;
 			}
+			
 			name = value.substr(start + 1, end - start - 1);
 			++end; // skip '}'
 		}
 		else
-		{
-			// $VAR
+		{ // $VAR
 			end = start;
-			while (end < value.size() &&
-			       (std::isalnum(static_cast<unsigned char>(value[end])) || value[end] == '_'))
+
+			while (end < value.size() && (std::isalnum(static_cast<unsigned char>(value[end])) || value[end] == '_'))
 				++end;
+			
 			name = value.substr(start, end - start);
 		}
 
@@ -86,6 +87,7 @@ std::string dotenv::expand(const std::string& value) const noexcept
 		}
 
 		auto it = this->_map.find(name);
+		
 		if (it != this->_map.end())
 			result += it->second;
 		else if (const char* env = std::getenv(name.c_str()))
