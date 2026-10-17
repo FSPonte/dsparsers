@@ -15,13 +15,13 @@ public:
 
 	/**
 	 * @brief Parameterized constructor
-	 * @param file_name Name of the .env file
+	 * @param file_name Name of the env file
 	*/
 	dotenv(const std::string&) noexcept(true);
 
 	/**
-	 * @brief Load a .env file
-	 * @param file_name Name of the .env file
+	 * @brief Load a env file
+	 * @param file_name Name of the env file
 	 * @throw Failed to open the file
 	*/
 	void load(const std::string&) noexcept(false);
